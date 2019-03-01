@@ -6,10 +6,6 @@
 Welcome to Beamforming Cookbook
 ===============================
 
-.. only:: html
-
-   This web site can also be downloaded as a PDF 
-
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
