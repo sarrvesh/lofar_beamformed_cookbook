@@ -1,0 +1,1112 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction &mdash; Beamforming Cookbook v1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Solar applications" href="solarapplications.html" />
+    <link rel="prev" title="Welcome to Beamforming Cookbook" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Beamforming Cookbook
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#beam-definitions">Beam definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#beamformed-data-format">Beamformed data format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#file-name-structure">File name structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hdf5-file-structure">HDF5 file structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#root-group">Root group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-sub-array-pointing-group">The sub-array pointing group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-beam-group">The beam group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-dataset">The dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-coordinates-group">The coordinates group</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reading-beamformed-data-using-python">Reading Beamformed data using python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-dynamic-spectrum-toolkit">The dynamic spectrum toolkit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#beam2dynspec-complete">Beam2Dynspec-complete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#beam2dynspec-rebin">Beam2Dynspec-Rebin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#beam2dynspec-quick">Beam2Dynspec-Quick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dynspec-linpol">Dynspec-LinPol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dynspec-subtract">Dynspec-Subtract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dynspec-rebin">Dynspec-Rebin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dynspec-visu">Dynspec-Visu</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="solarapplications.html">Solar applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pulp.html">Pulsar Pipeline (PulP)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Beamforming Cookbook</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Introduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Beam-formed data, where delays are applied to the incoming data to ‘point’ a radio telescope array in a specified direction have many uses. The resulting data are time-frequency (“dynamic spectrum”) data of the target radio source recorded at much higher resolution than is possible using the interferometer alone.  Such data are used to study, for example, radio signatures of solar bursts, planetary emission from Jupiter and scintillation of a compact source due to the ionosphere or solar wind. This cookbook will focus in particular on the Solar applications detailed in chapter <a class="reference internal" href="solarapplications.html#solarapplication"><span class="std std-ref">solar applications</span></a> and on the pulsar case detailed in chapter <a class="reference internal" href="pulp.html#pulp"><span class="std std-ref">Pulsar Pipeline (PulP)</span></a>.</p>
+<p>In this chapter the structure of the beam-formed data format is detailed alongside examples of how these data may be read using a dedicated Dynamic Spectrum toolkit or a regular python script. The basic data product returned by the individual LOFAR stations, it also enables valuable science to be done using single stations.</p>
+<div class="section" id="beam-definitions">
+<h2>Beam definitions<a class="headerlink" href="#beam-definitions" title="Permalink to this headline">¶</a></h2>
+<p>Before detailing the structure and use of beam-formed data recorded by LOFAR, it is first useful to give a brief reminder of the definitions of the various beams which can be formed.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>High-band array (HBA) “tile beam”:</dt>
+<dd><ul class="first last">
+<li>Each HBA tile contains an analogue beam-former which is used to ‘point’ the tile in a given direction.</li>
+<li>Half-power beam width is approximately 15 to 30 degrees over the frequency range 240 to 110 MHz.</li>
+<li>Only on beam can be formed at a time.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Station beam or “sub-array pointing”:</dt>
+<dd><ul class="first last">
+<li>A digital beam-former at each station is used to combine low-band antennas or HBA tiles within a station to ‘point’ in a given direction.</li>
+<li>Capable of forming up to 488 ‘beamlets’ (in 8-bit mode). Each beamlet represents a single pointing direction with a bandwidth of one sub-band (195.3125 kHz when the 200 MHz sampling clock is used).</li>
+<li>A station beam is formed from the combination of any number of these beamlets.</li>
+<li>Multiple station beams can be formed so long as the total number of beamlets does not exceed the maximum. Thus the bandwidth available to each beam is reduced according to the number of station beams formed.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Beams formed by the main correlator (COBALT):</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>“Tied-array beams (TAB)”:</dt>
+<dd><ul class="first last">
+<li>Each station beam returned from multiple stations can be combined coherently to form multiple tied-array beams, each with a different pointing.</li>
+<li>Represent the narrowest beams which can be formed with LOFAR, with half-power beamwidths of less than 0.1 degree depending on frequency and the baselines of stations used.</li>
+<li>bla</li>
+<li>Up to approximately 200 beams can be formed each with the same bandwidth as the station beam(s) used.</li>
+<li>Restricted to core stations only.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>“Incoherent beam”:</dt>
+<dd><ul class="first last">
+<li>Each station beam returned from multiple stations can be combined incoherently to form a single incoherent beam for each station beam.</li>
+<li>Any set of LOFAR stations can be used as input.</li>
+<li>Half power beam width wider than for a coherent tied-array beam.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>“Fly’s Eye” beam:</dt>
+<dd><ul class="first last">
+<li>The data from each station are processed by the correlator to average in time and increase frequency resolution as required, but are recorded separately without additional beam-forming.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>These definitions and restrictions need to be taken into account when designing a LOFAR observation.  For example, a coherent TAB will only return useful data if its pointing direction falls within the station beam, and an HBA station beam will only return useful data if it falls within the HBA tile beam.</p>
+</div>
+<div class="section" id="beamformed-data-format">
+<span id="bfdataformat"></span><h2>Beamformed data format<a class="headerlink" href="#beamformed-data-format" title="Permalink to this headline">¶</a></h2>
+<p>A beam-formed data set will consist of two or more data files according to the setup of the experiment.</p>
+<p>Beam-formed data are recorded individually per beam, so data from the various coherent and/or incoherent beams specified for each station beam are recorded separately.  If all four Stokes parameters are requested, these will be recorded in further separate files.  Usually data from all sub-bands will be recorded to each file, but it is also possible that subsets of sub-bands may be recorded to different files if the experiment setup has specified this.</p>
+<div class="section" id="file-name-structure">
+<h3>File name structure<a class="headerlink" href="#file-name-structure" title="Permalink to this headline">¶</a></h3>
+<p>For each recorded beam, Stokes parameter and subset of sub-bands two files will be recorded: an HDF5 file containing the meta-data and a link within it to the time-frequency data stored in a separate binary file.  Each file is labelled as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ObsID</span><span class="o">&gt;</span><span class="n">_SAP</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="n">_BEAM</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="n">_S</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="n">_P</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;.</span><span class="n">h5</span>
+<span class="o">&lt;</span><span class="n">ObsID</span><span class="o">&gt;</span><span class="n">_SAP</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="n">_BEAM</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="n">_S</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="n">_P</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;.</span><span class="n">raw</span>
+</pre></div>
+</div>
+<p>where</p>
+<ul class="simple">
+<li>&lt;OBsID&gt; is the observation ID number</li>
+<li>SAP&lt;number&gt; refers to the station beam, and &lt;number&gt; is three digits.  e.g., the first station beam is labelled as SAP000</li>
+<li>BEAM&lt;number&gt; refers to each coherent tied-array beam, incoherent beam or Fly’s Eye beam and &lt;number&gt; is three digits starting with 000. Here, the  order is important: Coherent tied-array beams are numbered first with specified  pointing directions numbered in order of specification ahead of those calculate d from tied-array “rings”. Incoherent Stokes beams are numbered next and Fly’s Eye beams numbered last.  No numbers are reserved for particular cases, so all available beams will be numbered sequentially and the experiment setup needs to be known to determine which numbers refer to which coherent, incoherent or fly’s eye beam.</li>
+<li>S&lt;number&gt; is the Stokes parameter and &lt;number&gt; is 0-3 for Stokes I,Q,U,V respectively.</li>
+<li>P&lt;number&gt; is a part number used to differentiate files when subsets of sub-bands are recorded separately. &lt;number&gt; is three digits with 000 referring to the first &lt;X&gt; sub-bands, 001 refering to the next &lt;X&gt; sub-bands and so on. If all sub-bands are recorded to the same file’s only 000 is used.</li>
+</ul>
+<p>For example, Stokes Q data from observation with ID number L646143 for the 10th labelled beam number of the second station beam will have the file names:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">L646143_SAP001_BEAM009_S1_P000</span><span class="o">.</span><span class="n">h5</span>
+<span class="n">L646143_SAP001_BEAM009_S1_P000</span><span class="o">.</span><span class="n">raw</span>
+</pre></div>
+</div>
+<p>If the observation contains 400 sub-bands recorded as 20 sub-bands per file, part numbers would be P000 to P019.</p>
+</div>
+<div class="section" id="hdf5-file-structure">
+<h3>HDF5 file structure<a class="headerlink" href="#hdf5-file-structure" title="Permalink to this headline">¶</a></h3>
+<p>The HDF5 file format is a hierarchical filesystem-like data format of ‘groups’, which can be imagined as being directories in the filesystem analogy, and datasets stored as multi-dimensional arrays.  Each group or dataset can have meta-data attached in the form of named attributes and each group may contain sub-groups and datasets.</p>
+<p>Several libraries exist to be able to read HDF5 data using whichever programming or scripting language preferred and the reader is advised to search for the relevant libraries on the internet.</p>
+<div class="section" id="root-group">
+<h4>Root group<a class="headerlink" href="#root-group" title="Permalink to this headline">¶</a></h4>
+<p>The root group of a beam-formed dataset contains the meta-data describing the overall observation.  These attributes should be self-explanatory, but the ordering is not completely logical if all are printed in one go.  The attributes of an example observation are given below, grouped together for ease of display.</p>
+<p>A number of attributes are general ‘system’ attributes which a user is unlikely to need to be concerned with in the majority of cases:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;DOC_VERSION&#39;</span><span class="p">,</span> <span class="s1">&#39;2.5.0&#39;</span>
+<span class="s1">&#39;FILETYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;bf&#39;</span>
+<span class="s1">&#39;NOTES&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+<span class="s1">&#39;DOC_NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;ICD 3: Beam-Formed Data&#39;</span>
+<span class="s1">&#39;BF_VERSION&#39;</span><span class="p">,</span> <span class="s1">&#39;Cobalt/OutputProc 2.6_0 r30300 using DAL 2.5.0 and HDF5 1.8.4&#39;</span>
+<span class="s1">&#39;FILENAME&#39;</span><span class="p">,</span> <span class="s1">&#39;L649892_SAP000_B059_S0_P000_bf.h5&#39;</span>
+<span class="s1">&#39;FILEDATE&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-08-31T13:30:05.3&#39;</span>
+<span class="s1">&#39;TELESCOPE&#39;</span><span class="p">,</span> <span class="s1">&#39;LOFAR&#39;</span>
+<span class="s1">&#39;PROJECT_ID&#39;</span><span class="p">,</span> <span class="s1">&#39;2018LOFAROBS&#39;</span>
+<span class="s1">&#39;PROJECT_PI&#39;</span><span class="p">,</span> <span class="s1">&#39;Pizzo, Dr. Roberto Francesco&#39;</span>
+<span class="s1">&#39;PROJECT_CO_I&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+<span class="s1">&#39;PROJECT_CONTACT&#39;</span><span class="p">,</span> <span class="s1">&#39;Pizzo, Dr. Roberto Francesco&#39;</span>
+<span class="s1">&#39;OBSERVATION_ID&#39;</span><span class="p">,</span> <span class="s1">&#39;649892&#39;</span>
+<span class="s1">&#39;SYSTEM_VERSION&#39;</span><span class="p">,</span> <span class="s1">&#39;2.6_0&#39;</span>
+<span class="s1">&#39;GROUPTYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;Root&#39;</span>
+<span class="s1">&#39;PROJECT_TITLE&#39;</span><span class="p">,</span> <span class="s1">&#39;FE HBA_DUAL&#39;</span>
+<span class="s1">&#39;CREATE_OFFLINE_ONLINE&#39;</span><span class="p">,</span> <span class="s1">&#39;Online&#39;</span>
+<span class="s1">&#39;BF_FORMAT&#39;</span><span class="p">,</span> <span class="s1">&#39;TAB&#39;</span>
+<span class="s1">&#39;OBSERVATION_NOF_BITS_PER_SAMPLE&#39;</span><span class="p">,</span> <span class="mi">16</span>
+</pre></div>
+</div>
+<p>Remaining attributes detail the main observation parameters.  First, the number of station beams and stations used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;OBSERVATION_NOF_SUB_ARRAY_POINTINGS&#39;</span><span class="p">,</span> <span class="mi">1</span>
+<span class="s1">&#39;NOF_SUB_ARRAY_POINTINGS&#39;</span><span class="p">,</span> <span class="mi">1</span>
+<span class="s1">&#39;OBSERVATION_NOF_STATIONS&#39;</span><span class="p">,</span> <span class="mi">60</span>
+<span class="s1">&#39;OBSERVATION_STATIONS_LIST&#39;</span><span class="p">,</span>
+  <span class="n">array</span><span class="p">([</span><span class="n">CS001HBA0</span><span class="p">,</span> <span class="n">CS001HBA1</span><span class="p">,</span> <span class="n">CS003HBA0</span><span class="p">,</span> <span class="n">CS003HBA1</span><span class="p">,</span>
+    <span class="n">CS004HBA0</span><span class="p">,</span> <span class="n">CS004HBA1</span><span class="p">,</span> <span class="n">CS005HBA0</span><span class="p">,</span> <span class="n">CS005HBA1</span><span class="p">,</span>
+    <span class="n">CS006HBA0</span><span class="p">,</span> <span class="n">CS006HBA1</span><span class="p">,</span> <span class="n">CS007HBA0</span><span class="p">,</span> <span class="n">CS007HBA1</span><span class="p">,</span>
+    <span class="n">CS011HBA0</span><span class="p">,</span> <span class="n">CS011HBA1</span><span class="p">,</span> <span class="n">CS013HBA0</span><span class="p">,</span> <span class="n">CS013HBA1</span><span class="p">,</span>
+    <span class="n">CS017HBA0</span><span class="p">,</span> <span class="n">CS017HBA1</span><span class="p">,</span> <span class="n">CS021HBA0</span><span class="p">,</span> <span class="n">CS021HBA1</span><span class="p">,</span>
+    <span class="n">CS024HBA0</span><span class="p">,</span> <span class="n">CS024HBA1</span><span class="p">,</span> <span class="n">CS026HBA0</span><span class="p">,</span> <span class="n">CS026HBA1</span><span class="p">,</span>
+    <span class="n">CS028HBA0</span><span class="p">,</span> <span class="n">CS028HBA1</span><span class="p">,</span> <span class="n">CS030HBA0</span><span class="p">,</span> <span class="n">CS030HBA1</span><span class="p">,</span>
+    <span class="n">CS031HBA0</span><span class="p">,</span> <span class="n">CS031HBA1</span><span class="p">,</span> <span class="n">CS032HBA0</span><span class="p">,</span> <span class="n">CS032HBA1</span><span class="p">,</span>
+    <span class="n">CS101HBA0</span><span class="p">,</span> <span class="n">CS101HBA1</span><span class="p">,</span> <span class="n">CS103HBA0</span><span class="p">,</span> <span class="n">CS103HBA1</span><span class="p">,</span>
+    <span class="n">CS201HBA0</span><span class="p">,</span> <span class="n">CS201HBA1</span><span class="p">,</span> <span class="n">CS301HBA0</span><span class="p">,</span> <span class="n">CS301HBA1</span><span class="p">,</span>
+    <span class="n">CS302HBA0</span><span class="p">,</span> <span class="n">CS302HBA1</span><span class="p">,</span> <span class="n">CS401HBA0</span><span class="p">,</span> <span class="n">CS401HBA1</span><span class="p">,</span>
+    <span class="n">CS501HBA0</span><span class="p">,</span> <span class="n">CS501HBA1</span><span class="p">,</span> <span class="n">RS106HBA</span><span class="p">,</span> <span class="n">RS205HBA</span><span class="p">,</span>
+    <span class="n">RS208HBA</span><span class="p">,</span> <span class="n">RS210HBA</span><span class="p">,</span> <span class="n">RS305HBA</span><span class="p">,</span> <span class="n">RS306HBA</span><span class="p">,</span>
+    <span class="n">RS307HBA</span><span class="p">,</span> <span class="n">RS310HBA</span><span class="p">,</span> <span class="n">RS406HBA</span><span class="p">,</span> <span class="n">RS407HBA</span><span class="p">,</span>
+    <span class="n">RS409HBA</span><span class="p">,</span> <span class="n">RS503HBA</span><span class="p">,</span> <span class="n">RS508HBA</span><span class="p">,</span> <span class="n">RS509HBA</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Frequency parameters; units used are given as separate attributes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;CLOCK_FREQUENCY&#39;</span><span class="p">,</span> <span class="mf">200.0</span>
+<span class="s1">&#39;ANTENNA_SET&#39;</span><span class="p">,</span> <span class="s1">&#39;HBA_DUAL&#39;</span>
+<span class="s1">&#39;FILTER_SELECTION&#39;</span><span class="p">,</span> <span class="s1">&#39;HBA_110_190&#39;</span>
+<span class="s1">&#39;OBSERVATION_FREQUENCY_MIN&#39;</span><span class="p">,</span> <span class="mf">114.935302734375</span>
+<span class="s1">&#39;OBSERVATION_FREQUENCY_CENTER&#39;</span><span class="p">,</span> <span class="mf">138.763427734375</span>
+<span class="s1">&#39;OBSERVATION_FREQUENCY_MAX&#39;</span><span class="p">,</span> <span class="mf">162.591552734375</span>
+<span class="s1">&#39;BANDWIDTH&#39;</span><span class="p">,</span> <span class="mf">47.65625</span>
+<span class="s1">&#39;CLOCK_FREQUENCY_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;MHz&#39;</span>
+<span class="s1">&#39;BANDWIDTH_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;MHz&#39;</span>
+<span class="s1">&#39;OBSERVATION_FREQUENCY_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;MHz&#39;</span>
+</pre></div>
+</div>
+<p>Time parameters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;OBSERVATION_START_UTC&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-08-31T13:31:08.000000Z&#39;</span>
+<span class="s1">&#39;OBSERVATION_END_UTC&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-08-31T13:36:07.97662210Z&#39;</span>
+<span class="s1">&#39;OBSERVATION_START_MJD&#39;</span><span class="p">,</span> <span class="mf">56961.563287037039</span>
+<span class="s1">&#39;OBSERVATION_END_MJD&#39;</span><span class="p">,</span> <span class="mf">56961.56675898868</span>
+</pre></div>
+</div>
+<p>Target list (as specified by the station beams) and observation duration in seconds:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;TARGETS&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="n">B0809</span><span class="o">+</span><span class="mi">74</span><span class="p">])</span>
+<span class="s1">&#39;TOTAL_INTEGRATION_TIME&#39;</span><span class="p">,</span> <span class="mf">299.97662208000003</span>
+<span class="s1">&#39;TOTAL_INTEGRATION_TIME_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span>
+</pre></div>
+</div>
+<p>The root group also contains two sub-groups:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">HDF5</span> <span class="n">group</span> <span class="s2">&quot;/SUB_ARRAY_POINTING_xxx&quot;</span> <span class="p">(</span><span class="mi">2</span> <span class="n">members</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">HDF5</span> <span class="n">group</span> <span class="s2">&quot;/SYS_LOG&quot;</span> <span class="p">(</span><span class="mi">0</span> <span class="n">members</span><span class="p">)</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The <strong>SYS_LOG</strong> group is designed to contain information from the observation logs, but is currently empty.</p>
+</div>
+<div class="section" id="the-sub-array-pointing-group">
+<h4>The sub-array pointing group<a class="headerlink" href="#the-sub-array-pointing-group" title="Permalink to this headline">¶</a></h4>
+<p>Attributes of the <strong>SUB_ARRAY_POINTING_xxx</strong> group detail meta-data for the station beam of this data file as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;POINT_RA_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;deg&#39;</span>
+<span class="s1">&#39;OBSERVATION_NOF_BEAMS&#39;</span><span class="p">,</span> <span class="mi">60</span>
+<span class="s1">&#39;EXPTIME_END_UTC&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-08-31T13:36:07.976622105Z&#39;</span>
+<span class="s1">&#39;POINT_DEC_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;deg&#39;</span>
+<span class="s1">&#39;POINT_RA&#39;</span><span class="p">,</span> <span class="mf">123.74791666666667</span>
+<span class="s1">&#39;POINT_DEC&#39;</span><span class="p">,</span> <span class="mf">74.484916666666663</span>
+<span class="s1">&#39;NOF_BEAMS&#39;</span><span class="p">,</span> <span class="mi">1</span>
+<span class="s1">&#39;TOTAL_INTEGRATION_TIME&#39;</span><span class="p">,</span> <span class="mf">299.97662208000003</span>
+<span class="s1">&#39;GROUPTYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;SubArrayPointing&#39;</span>
+<span class="s1">&#39;EXPTIME_END_MJD&#39;</span><span class="p">,</span> <span class="mf">56961.56675898868</span>
+<span class="s1">&#39;EXPTIME_START_UTC&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-08-31T13:31:08.000000000Z&#39;</span>
+<span class="s1">&#39;TOTAL_INTEGRATION_TIME_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span>
+<span class="s1">&#39;EXPTIME_START_MJD&#39;</span><span class="p">,</span> <span class="mf">56961.563287037039</span>
+</pre></div>
+</div>
+<p>In this case the start and end times and total integration time given refer specifically to this station beam.  Although these are currently the same as those of the main observation, a future enhancement may allow changing of the pointing direction during a running observation.  The number of beams given is the total number of beams contained in the observation, but information from only one will be stored in a given file.</p>
+<p>The <strong>SUB_ARRAY_POINTING_xxx</strong> group contains two further sub-groups:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">HDF5</span> <span class="n">group</span> <span class="s2">&quot;/SUB_ARRAY_POINTING_xxx/BEAM_yyy&quot;</span>
+<span class="p">(</span><span class="mi">3</span> <span class="n">members</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">HDF5</span> <span class="n">group</span> <span class="s2">&quot;/SUB_ARRAY_POINTING_xxx/PROCESS_HISTORY&quot;</span>
+<span class="p">(</span><span class="mi">0</span> <span class="n">members</span><span class="p">)</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The <strong>PROCESS_HISTORY</strong> sub-group contains no further structures, but does contain as attributes correlator-specific settings which are unlikely to be of interest to users.</p>
+</div>
+<div class="section" id="the-beam-group">
+<h4>The beam group<a class="headerlink" href="#the-beam-group" title="Permalink to this headline">¶</a></h4>
+<p>Attributes of the <strong>BEAM_yyy</strong> group detail meta-data for the particular beam (coherent tied-array, incoherent or Fly’s Eye) stored in this data file.</p>
+<p>Pointing parameters include the pointing direction of the station beam and any offset from that in the case of a coherent tied-array beam.  Thus the true pointing direction of this beam will be <strong>POINT_RA</strong> + <strong>POINT_OFFSET_RA</strong> and <strong>POINT_DEC</strong> + <strong>POINT_OFFSET_DEC</strong>. The <strong>BEAM_DIAMETER</strong> attributes are not currently used.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;TARGETS&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="n">B0809</span><span class="o">+</span><span class="mi">74</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+<span class="s1">&#39;POINT_RA&#39;</span><span class="p">,</span> <span class="mf">123.74791666666667</span>
+<span class="s1">&#39;POINT_DEC&#39;</span><span class="p">,</span> <span class="mf">74.484916666666663</span>
+<span class="s1">&#39;POINT_RA_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;deg&#39;</span>
+<span class="s1">&#39;POINT_DEC_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;deg&#39;</span>
+<span class="s1">&#39;TRACKING&#39;</span><span class="p">,</span> <span class="s1">&#39;J2000&#39;</span>
+<span class="s1">&#39;POINT_OFFSET_RA&#39;</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="s1">&#39;POINT_OFFSET_DEC&#39;</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="s1">&#39;POINT_OFFSET_RA_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;deg&#39;</span>
+<span class="s1">&#39;POINT_OFFSET_DEC_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;deg&#39;</span>
+<span class="s1">&#39;BEAM_DIAMETER_RA&#39;</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="s1">&#39;BEAM_DIAMETER_DEC&#39;</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="s1">&#39;BEAM_DIAMETER_RA_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;arcmin&#39;</span>
+<span class="s1">&#39;BEAM_DIAMETER_DEC_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;arcmin&#39;</span>
+<span class="s1">&#39;BARYCENTERED&#39;</span><span class="p">,</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>Time parameters include the total number of time samples, the sampling rate in Hz and the time resolution in seconds.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;NOF_SAMPLES&#39;</span><span class="p">,</span> <span class="mi">28608</span>
+<span class="s1">&#39;SAMPLING_RATE&#39;</span><span class="p">,</span> <span class="mf">95.367431640625</span>
+<span class="s1">&#39;SAMPLING_RATE_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;Hz&#39;</span>
+<span class="s1">&#39;SAMPLING_TIME&#39;</span><span class="p">,</span> <span class="mf">0.01048576</span>
+<span class="s1">&#39;SAMPLING_TIME_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span>
+</pre></div>
+</div>
+<p>Frequency parameters include the central frequency of the beam, the width in Hz of each sub-band, the number of frequency channels per sub-band and the resulting bandwidth of each channel in Hz.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;BEAM_FREQUENCY_CENTER&#39;</span><span class="p">,</span> <span class="mf">138.763427734375</span>
+<span class="s1">&#39;BEAM_FREQUENCY_CENTER_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;MHz&#39;</span>
+<span class="s1">&#39;SUBBAND_WIDTH&#39;</span><span class="p">,</span> <span class="mf">195312.5</span>
+<span class="s1">&#39;SUBBAND_WIDTH_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;Hz&#39;</span>
+<span class="s1">&#39;CHANNELS_PER_SUBBAND&#39;</span><span class="p">,</span> <span class="mi">16</span>
+<span class="s1">&#39;CHANNEL_WIDTH&#39;</span><span class="p">,</span> <span class="mf">12207.03125</span>
+<span class="s1">&#39;CHANNEL_WIDTH_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;Hz&#39;</span>
+</pre></div>
+</div>
+<p>Pulsar-specific parameters include any frequency dispersion measure used in correlating the data and any folding applied.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;DEDISPERSION&#39;</span><span class="p">,</span> <span class="s1">&#39;NONE&#39;</span>
+<span class="s1">&#39;DISPERSION_MEASURE&#39;</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="s1">&#39;DISPERSION_MEASURE_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;pc/cm^3&#39;</span>
+<span class="s1">&#39;FOLDED_DATA&#39;</span><span class="p">,</span> <span class="mi">0</span>
+<span class="s1">&#39;FOLD_PERIOD&#39;</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="s1">&#39;FOLD_PERIOD_UNIT&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span>
+</pre></div>
+</div>
+<p>Stokes parameters are also detailed, along with a key to determine whether or not complex voltages were recorded.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;NOF_STOKES&#39;</span><span class="p">,</span> <span class="mi">1</span>
+<span class="s1">&#39;COMPLEX_VOLTAGE&#39;</span><span class="p">,</span> <span class="mi">0</span>
+<span class="s1">&#39;OBSERVATION_NOF_STOKES&#39;</span><span class="p">,</span> <span class="mi">1</span>
+<span class="s1">&#39;STOKES_COMPONENTS&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="n">I</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Other parameters include the station(s) used in correlating this beam (all stations for a coherent tied-array beam, the station recorded to this beam in the case of Fly’s Eye).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;SIGNAL_SUM&#39;</span><span class="p">,</span> <span class="s1">&#39;COHERENT&#39;</span>
+<span class="s1">&#39;NOF_STATIONS&#39;</span><span class="p">,</span> <span class="mi">1</span>
+<span class="s1">&#39;STATIONS_LIST&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="n">RS509HBA</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+<span class="s1">&#39;GROUPTYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;Beam&#39;</span>
+</pre></div>
+</div>
+<p>Two further sub-groups exist here also, plus the dataset itself.  As before, the <strong>PROCESS_HISTORY</strong> sub group can be ignored.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">HDF5</span> <span class="n">group</span> <span class="s2">&quot;/SUB_ARRAY_POINTING_000/BEAM_059/COORDINATES&quot;</span> <span class="p">(</span><span class="mi">2</span> <span class="n">members</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">HDF5</span> <span class="n">group</span> <span class="s2">&quot;/SUB_ARRAY_POINTING_000/BEAM_059/PROCESS_HISTORY&quot;</span> <span class="p">(</span><span class="mi">0</span> <span class="n">members</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">HDF5</span> <span class="n">dataset</span> <span class="s2">&quot;STOKES_0&quot;</span><span class="p">:</span> <span class="n">shape</span> <span class="p">(</span><span class="mi">28608</span><span class="p">,</span> <span class="mi">3904</span><span class="p">),</span> <span class="nb">type</span> <span class="s2">&quot;&lt;f4&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The dataset is a two-dimensional array of (time,frequency) data for the Stokes parameter recorded to this file.  Further details of the time and frequency axes are given in the <strong>COORDINATES</strong> sub-group.</p>
+</div>
+<div class="section" id="the-dataset">
+<h4>The dataset<a class="headerlink" href="#the-dataset" title="Permalink to this headline">¶</a></h4>
+<p>The data can be obtained by pointing a computer program to the <strong>/SUB_ARRAY_POINTING_xxx/BEAM_yyy/STOKES_z</strong> location.  Details on how to do this using Python are given as an example in section <a class="reference internal" href="#bfpython"><span class="std std-ref">Reading beamformed data using python</span></a>.  Some meta-data are also stored as attributes to the dataset; these are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;GROUPTYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;bfData&#39;</span>
+<span class="s1">&#39;STOKES_COMPONENT&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span>
+<span class="s1">&#39;NOF_CHANNELS&#39;</span><span class="p">,</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="o">...</span>
+    <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">uint32</span><span class="p">)</span>
+<span class="s1">&#39;NOF_SUBBANDS&#39;</span><span class="p">,</span> <span class="mi">244</span>
+<span class="s1">&#39;NOF_SAMPLES&#39;</span><span class="p">,</span> <span class="mi">57216</span><span class="p">)</span>
+<span class="s1">&#39;DATATYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>where <strong>NOF_CHANNELS</strong> is the number of channels per sub-band for each sub-band, <strong>NOF_SUBBANDS</strong> is the number of sub-bands recorded and <strong>NOF_SAMPLES</strong> is the total number of time samples in the data. <strong>NOF_CHANNELS</strong> details the number of channels for each sub-band individually.</p>
+</div>
+<div class="section" id="the-coordinates-group">
+<h4>The coordinates group<a class="headerlink" href="#the-coordinates-group" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>COORDINATES</strong> group contains two sub-groups, <strong>COORDINATE_0</strong> and <strong>COORDINATE_1</strong>, which contain the details necessary to retrieve or calculate the time and frequency values for each axis of the dataset.</p>
+<p><strong>COORDINATE_0</strong> allows values for the time axis to be calculated but, currently, the only value of use is <strong>INCREMENT</strong> which gives the increment in seconds of each time step.  An array of time axis values can be generated using time information given in attributes elsewhere.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;REFERENCE_PIXEL&#39;</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="s1">&#39;AXIS_VALUES_WORLD&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span> <span class="mf">0.</span><span class="p">])</span>
+<span class="s1">&#39;INCREMENT&#39;</span><span class="p">,</span> <span class="mf">0.01048576</span>
+<span class="s1">&#39;STORAGE_TYPE&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="n">Linear</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+<span class="s1">&#39;AXIS_VALUES_PIXEL&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">uint32</span><span class="p">)</span>
+<span class="s1">&#39;REFERENCE_VALUE&#39;</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="s1">&#39;GROUPTYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeCoord&#39;</span>
+<span class="s1">&#39;NOF_AXES&#39;</span><span class="p">,</span> <span class="mi">1</span>
+<span class="s1">&#39;PC&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span> <span class="mf">1.</span><span class="p">])</span>
+<span class="s1">&#39;AXIS_NAMES&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="n">Time</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+<span class="s1">&#39;AXIS_UNITS&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="n">us</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+<span class="s1">&#39;COORDINATE_TYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;Time&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p><strong>COORDINATE_1</strong> gives attributes and values for the frequency axis. <strong>AXIS_VALUES_WORLD</strong> is the main array of note here, as that contains the frequency points in Hz.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;REFERENCE_PIXEL&#39;</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="s1">&#39;AXIS_VALUES_WORLD&#39;</span><span class="p">,</span>
+  <span class="n">array</span><span class="p">([</span>  <span class="mf">1.14941406e+08</span><span class="p">,</span>   <span class="mf">1.14953613e+08</span><span class="p">,</span>
+         <span class="mf">1.14965820e+08</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span>
+         <span class="mf">1.62561035e+08</span><span class="p">,</span>   <span class="mf">1.62573242e+08</span><span class="p">,</span>
+         <span class="mf">1.62585449e+08</span><span class="p">])</span>
+<span class="s1">&#39;INCREMENT&#39;</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="s1">&#39;STORAGE_TYPE&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="n">Tabular</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+<span class="s1">&#39;AXIS_VALUES_PIXEL&#39;</span><span class="p">,</span>
+  <span class="n">array</span><span class="p">([</span>   <span class="mi">0</span><span class="p">,</span>    <span class="mi">1</span><span class="p">,</span>    <span class="mi">2</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">3901</span><span class="p">,</span> <span class="mi">3902</span><span class="p">,</span> <span class="mi">3903</span><span class="p">],</span>
+     <span class="n">dtype</span><span class="o">=</span><span class="n">uint32</span><span class="p">)</span>
+<span class="s1">&#39;REFERENCE_VALUE&#39;</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="s1">&#39;GROUPTYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;SpectralCoord&#39;</span>
+<span class="s1">&#39;NOF_AXES&#39;</span><span class="p">,</span> <span class="mi">1</span>
+<span class="s1">&#39;PC&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span> <span class="mf">1.</span><span class="p">])</span>
+<span class="s1">&#39;AXIS_NAMES&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="n">Frequency</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+<span class="s1">&#39;AXIS_UNITS&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="n">MHz</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+<span class="s1">&#39;COORDINATE_TYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;Spectral&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>This completes the contents of LOFAR beam-formed data files.  In the next section, we take a practical look at how to read these data using Python.</p>
+</div>
+</div>
+</div>
+<div class="section" id="reading-beamformed-data-using-python">
+<span id="bfpython"></span><h2>Reading Beamformed data using python<a class="headerlink" href="#reading-beamformed-data-using-python" title="Permalink to this headline">¶</a></h2>
+<p>In this section Python is used to read in some meta-data from an example beam-formed data file, read in at least part of the data, and plot them.</p>
+<p>Python is a programming language which is easy to learn, to use, and is available for all major operating systems.  If you are running Linux or Mac OS it is likely that it is already installed on your system.</p>
+<p>For this tutorial a number of extensions will be needed.  In the majority of cases these will be available via regular software repositories for your operating system; if not they can be installed separately or via one of the major science-oriented Python distributions such as Anaconda.  These are:</p>
+<ul class="simple">
+<li>Numpy 1.6.1 or greater</li>
+<li>Cython: C extensions for Python available from <a class="reference external" href="http://www.cython.org">http://www.cython.org</a></li>
+<li>Matplotlib</li>
+<li>h5py: Python HDF5 library available from <a class="reference external" href="http://www.h5py.org">http://www.h5py.org</a></li>
+<li>ipython: not required but is a useful interactive environment for testing code.</li>
+</ul>
+<p>Please also note that throughout this tutorial it is assumed that you are using Python 2.x.  If you are using Python 3.x, some commands may need to be adjusted accordingly and these are not given here.</p>
+<p>Here, for simplicity, we use ipython started with the pylab extension which automatically imports packages from numpy and matplotlib.  If you are not using ipython, simply import these packages from your script or regular python session.  We also import the h5py package.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipython</span> <span class="o">--</span><span class="n">pylab</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">h5py</span>
+</pre></div>
+</div>
+<p><strong>For non-ipython users, `In [..]:’ is the ipython prompt.</strong></p>
+<p>h5py is used to explore and read the contents of a beam-formed h5 file.  Since the data themselves are stored in a separate ‘raw’ file, these two files must be stored in the same location and we need to change directory or folder to that location to be able to find the data via the h5 file.  This can be done before starting ipython or from within ipython via the regular system ‘cd’ command when running in a terminal session on any unix-type system.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">cd</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">data</span>
+</pre></div>
+</div>
+<p>Now open the file in read-only mode using h5py.Read.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;L649844_SAP000_B005_S0_P000_bf.h5&#39;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">f</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Exploring the contents of the file is straightforward.  There are three methods by which the contents (both folders (groups) and meta-data (attributes)) may be viewed: <strong>items()</strong> displays (name,value) for groups or attributes, <strong>keys()</strong> displays only the names, and <strong>values()</strong> displays only the values.  First, look at folders within the root group:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span>
+<span class="p">[(</span><span class="sa">u</span><span class="s1">&#39;SUB_ARRAY_POINTING_000&#39;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">HDF5</span> <span class="n">group</span> <span class="s2">&quot;/SUB_ARRAY_POINTING_000&quot;</span> <span class="p">(</span><span class="mi">2</span> <span class="n">members</span><span class="p">)</span><span class="o">&gt;</span><span class="p">),</span>
+ <span class="s1">&#39;SYS_LOG&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">HDF5</span> <span class="n">group</span> <span class="s2">&quot;/SYS_LOG&quot;</span> <span class="p">(</span><span class="mi">0</span> <span class="n">members</span><span class="p">)</span><span class="o">&gt;</span><span class="p">)]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;SUB_ARRAY_POINTING_000&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;SYS_LOG&#39;</span><span class="p">]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">HDF5</span> <span class="n">group</span> <span class="s2">&quot;/SUB_ARRAY_POINTING_000&quot;</span> <span class="p">(</span><span class="mi">2</span> <span class="n">members</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="n">HDF5</span> <span class="n">group</span> <span class="s2">&quot;/SYS_LOG&quot;</span> <span class="p">(</span><span class="mi">0</span> <span class="n">members</span><span class="p">)</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>To view the meta-data, use the <strong>attrs</strong> method in combination with these:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span>
+<span class="p">[(</span><span class="sa">u</span><span class="s1">&#39;DOC_VERSION&#39;</span><span class="p">,</span> <span class="s1">&#39;2.5.0&#39;</span><span class="p">),</span>
+<span class="s1">&#39;OBSERVATION_NOF_SUB_ARRAY_POINTINGS&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+ <span class="o">...</span>
+ <span class="o">...</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span>
+<span class="p">[</span><span class="sa">u</span><span class="s1">&#39;DOC_VERSION&#39;</span><span class="p">,</span>
+ <span class="sa">u</span><span class="s1">&#39;OBSERVATION_NOF_SUB_ARRAY_POINTINGS&#39;</span><span class="p">,</span>
+ <span class="o">...</span>
+ <span class="o">...</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span>
+<span class="p">[</span><span class="s1">&#39;2.5.0&#39;</span><span class="p">,</span>
+ <span class="mi">1</span><span class="p">,</span>
+ <span class="o">...</span>
+ <span class="o">...</span>
+</pre></div>
+</div>
+<p>A further useful method to be aware of is <strong>get()</strong> which can be used in combination with <strong>attrs</strong> to obtain the value of a particular attribute if the keyword is known.  For example, the parameter ‘TELESCOPE’ is part of the meta-data stored as attributes the root group:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;TELESCOPE&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="s1">&#39;LOFAR&#39;</span>
+</pre></div>
+</div>
+<p>To view further sub-groups and their attributes, use the full ‘path’ to that sub-group.  For example, the meta-data stored under the <strong>BEAM_xxx</strong> sub-group:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/SUB_ARRAY_POINTING_000/BEAM_005/&#39;</span><span class="p">]</span>
+       <span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span>
+<span class="p">[(</span><span class="sa">u</span><span class="s1">&#39;NOF_STOKES&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="s1">&#39;POINT_OFFSET_DEC&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<span class="s1">&#39;BEAM_FREQUENCY_CENTER&#39;</span><span class="p">,</span> <span class="mf">49.505615234375</span><span class="p">),</span>
+ <span class="o">...</span>
+ <span class="o">...</span>
+</pre></div>
+</div>
+<p>If preferred, it is straightforward to read the meta-data into a Python dictionary:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;TELESCOPE&#39;</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="s1">&#39;LOFAR&#39;</span>
+</pre></div>
+</div>
+<p>Full details of the meta-data and where they are stored are given in section <a class="reference internal" href="#bfdataformat"><span class="std std-ref">Beamformed data format</span></a> and so will not be repeated here.</p>
+<p>To read the data themselves as a Numpy array is only a matter of addressing the dataset in the h5 file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/SUB_ARRAY_POINTING_000/BEAM_005/</span>
+                <span class="n">STOKES_0</span><span class="s1">&#39;]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="p">(</span><span class="mi">3232896</span><span class="p">,</span> <span class="mi">6400</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that this does not physically read the data.  The data are only read the first time you attempt to do anything with them, whether that be some simple mathematics or merely displaying them in a plot.  They can also be read directly by requesting only slices of the array in typical Numpy style.  In this example, every 100th time sample and every 16th frequency sample is read in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/SUB_ARRAY_POINTING_000/BEAM_005/</span>
+                <span class="n">STOKES_0</span><span class="s1">&#39;][::100,::16]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="p">(</span><span class="mi">32328</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Depending upon the size of the data, reading the data in this way may take some time.  Take care not to read in more data than the system memory can handle!  Once into an array, they can be processed and displayed in the same way as any other Numpy array data.</p>
+<p>For example, to make a simple plot of the time series of one sub-band (assumes <em>ipython –pylab</em>: if you have imported matplotlib separately, you may need to use <em>matplotlib.plot(data[:,200])</em> and, possibly, <em>show()</em> to display it):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">200</span><span class="p">])</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x2563a50</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The result is shown in <a class="reference internal" href="#timeseries"><span class="std std-numref">Fig. 1</span></a>.</p>
+<div class="figure align-center" id="id1">
+<span id="timeseries"></span><img alt="_images/time_series_example.png" src="_images/time_series_example.png" />
+<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Example time series of data from one sub-band.</span></p>
+</div>
+<p>To display the frequency band for a single time sample, using the frequency co-ordinate data for the x-axis.  Note that only every 16th frequency point was read in earlier and so only every 16th frequency is required when plotting; here we also divide the frequencies to obtain values in MHz instead of Hz.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">freqs</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/SUB_ARRAY_POINTING_000/BEAM_005/</span>
+<span class="n">COORDINATES</span><span class="o">/</span><span class="n">COORDINATE_1</span><span class="s1">&#39;].attrs.get(&#39;</span><span class="n">AXIS_VALUES_WORLD</span><span class="s1">&#39;)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">freqs</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([</span> <span class="mf">10449218.75</span>   <span class="p">,</span>  <span class="mf">10461425.78125</span><span class="p">,</span>
+     <span class="mf">10473632.8125</span> <span class="p">,</span> <span class="o">...</span><span class="p">,</span>
+     <span class="mf">88549804.6875</span> <span class="p">,</span>  <span class="mf">88562011.71875</span><span class="p">])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">plot</span><span class="p">(</span><span class="n">freqs</span><span class="p">[::</span><span class="mi">16</span><span class="p">]</span><span class="o">/</span><span class="mf">1e6</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,:])</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x33cc790</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The result is shown in <a class="reference internal" href="#bandwidth"><span class="std std-numref">Fig. 2</span></a>.</p>
+<div class="figure align-center" id="id2">
+<span id="bandwidth"></span><img alt="_images/frequency_bandwidth_example.png" src="_images/frequency_bandwidth_example.png" />
+<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Example plot of frequency data for one time sample.</span></p>
+</div>
+<p>Finally, we display the dataset in the form of a dynamic spectrum.  In this example, we extract time and frequency parameters from the meta-data and divide each sub-band by it’s median to ‘flatten’ the data to correct for the frequency response across the pass-band.  The data are transposed to put frequency on the y-axis; note that frequency then increases from top to bottom when plotted.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">obsstart</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OBSERVATION_START_MJD&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">obsend</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OBSERVATION_END_MJD&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">fmin</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OBSERVATION_FREQUENCY_MIN&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">fmax</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OBSERVATION_FREQUENCY_MAX&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="k">for</span> <span class="n">sb</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+   <span class="o">....</span><span class="p">:</span>     <span class="n">data</span><span class="p">[:,</span><span class="n">sb</span><span class="p">]</span> <span class="o">/=</span> <span class="n">median</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="n">sb</span><span class="p">])</span>
+   <span class="o">....</span><span class="p">:</span>
+   <span class="o">....</span><span class="p">:</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span>
+             <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+             <span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="n">obsstart</span><span class="p">,</span><span class="n">obsend</span><span class="p">,</span><span class="n">fmax</span><span class="p">,</span><span class="n">fmin</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">AxesImage</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x3c38b10</span><span class="o">&gt;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time, MJD&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">Text</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x36c7b10</span><span class="o">&gt;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency, MHz&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">Text</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x36cf550</span><span class="o">&gt;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="n">colorbar</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="o">..</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">colorbar</span><span class="o">.</span><span class="n">Colorbar</span> <span class="n">instance</span> <span class="n">at</span> <span class="mh">0x36f86c8</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The results are shown in <a class="reference internal" href="#dynspec"><span class="std std-numref">Fig. 3</span></a>.</p>
+<div class="figure align-center" id="id3">
+<span id="dynspec"></span><img alt="_images/dynamic_spectrum_example.png" src="_images/dynamic_spectrum_example.png" />
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Example dynamic spectrum.</span></p>
+</div>
+</div>
+<div class="section" id="the-dynamic-spectrum-toolkit">
+<h2>The dynamic spectrum toolkit<a class="headerlink" href="#the-dynamic-spectrum-toolkit" title="Permalink to this headline">¶</a></h2>
+<p>The Dynamic spectrum Toolkit Container (DTC) is a complete package of tools to reduce, process and visualise LOFAR beam-formed data:</p>
+<ul class="simple">
+<li>“Quicklook” tool to obtain quicklook images</li>
+<li>Extract particular time and frequency ranges of interest</li>
+<li>Rebin the data to average in time and/or frequency</li>
+<li>“Subtraction” tool to subtract one beam from another (for example to subtract an off-source beam from an on-source) using Z=X-(k*Y) where k is a free scaling factor</li>
+<li>“LinPol” tool, to convert I,Q,U,V dynamic spectra to I,linear,PA,Total dynamic spectra</li>
+<li>Visualisation tool to explore the data</li>
+</ul>
+<p>Whilst DTC was primarily designed for use with LOFAR computing resources, both centrally and for international LOFAR stations being run in Local mode, it is also possible to install and use it on your own facilities.  Full installation details are available from the LOFAR wiki page:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://www.lofar.org/operations/doku.php?id=dysnpec_install
+</pre></div>
+</div>
+<p>All of the primary functions of the DTC package convert beam-formed data to, or use beam-formed data already stored, in a ‘dynamic spectrum’ (‘dynspec’) HDF5 data format.  Since the DTC package itself provides visualisation tools for this format, it will not be detailed here.  As an HDF5 format, it can be fully explored via Python using the methods described in section ref{bfpython} if desired.</p>
+<p><strong>A word of warning</strong>: The dynspec format stores all data from each station beam in a single file.  This can become very large, so the user is strongly advised to be sure that there is space available for these data after conversion.  The resulting file will be the size of the sum total of all raw beam-formed data files for a single station beam, divided by a factor to account for any rebinning specified.</p>
+<p>We now detail the various components of the DTC package, with examples.  For further details and tutorials, the reader is referred to the LOFAR wiki page:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://www.lofar.org/operations/doku.php?id=dysnpec_tools
+</pre></div>
+</div>
+<div class="section" id="beam2dynspec-complete">
+<span id="dynspeccomplete"></span><h3>Beam2Dynspec-complete<a class="headerlink" href="#beam2dynspec-complete" title="Permalink to this headline">¶</a></h3>
+<p>This tool does a complete conversion from raw LOFAR beam-formed data to the dynspec data format with no rebinning.  It is recommended for use only on small datasets (see warning above), particularly if the resulting file is to be visualised with Dynspec-Visu (detailed in section <a class="reference internal" href="#dynspecvisu"><span class="std std-ref">Dynspec-Visu</span></a>}).</p>
+<p>The usage is explained if the user runs the command with no arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Beam2Dynspec-Complete»
+
+MISSING Parameters
+Usage: Beam2Dynspec-Complete --id=Lxxxxxx  --obsDIR=
+--outputDIR= --RAM=(x in Gb) --Npart= --RebinAll=(yes
+or no) [if Rebinall=yes default =&gt; 0: else --NSAP=]
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>id=</strong> : The LOFAR observation ID, in the format Lxxxxxx</li>
+<li><strong>obsDIR=</strong> : Directory which contains all the h5 and raw files of the observation. The full path must be provided.</li>
+<li><strong>outputDIR=</strong> : Output directory where the resulting dynspec file(s), one per station beam, should be written. This may be created if it does not exist already.</li>
+<li><strong>RAM=</strong> : The amount of RAM the code is allowed to use. A value typically between 0.5-1 GB is recommended. This value has been estimated empirically, so it is not perfect. Large memory usage does not mean a speed improvement: the RAM quantity is linked to the size of the data blocks which will be processed to obtain the full array, and often it is better to have many small blocks than fewer large ones.</li>
+<li><strong>Npart=</strong> : The total number of ‘parts’ (Pxxx in the beam-formed data file names) the data for each beam have been written to.  If all sub-bands were written to one file for each beam, use <em>Npart=1</em>.</li>
+<li><strong>RebinAll=</strong> : yes or no. If ‘yes’, all SAPs (station beams) will be processed. If ‘no’, provide the number of the SAP that you want to process (see <em>NSAP=</em>)</li>
+<li><strong>NSAP= (optional)</strong>: Only used if <em>RebinAll=no</em>. Number of the SAP that you wish to process, e.g. ‘0’ for <em>SAP000</em>.</li>
+</ul>
+<p><strong>Example</strong>:  We have an observation with ID number L248607 and two station beams, whose files are stored in the directory /data/scratch/vilchez/CasA/L248607/.  Sub-bands were not split over multiple files, so there is only one ‘part’.  We will save the resulting dynspec file to the directory /data/scratch/vilchez/CasA/Dynspec/.  The command to run and screen output are as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Beam2Dynspec-Complete --id=L648607
+--obsDIR=/data/scratch/vilchez/CasA/L248607/
+--outputDIR=/data/scratch/vilchez/CasA/Dynspec/
+--RAM=1 --Npart=1 --RebinAll=yes
+
+find /data/scratch/vilchez/CasA/L248607/
+-name L648607_SAP*bf.h5  &gt; /data/scratch/vilchez/CasA/
+Dynspec/ICD3-Complete-list.txt
+
+ICD3 files list etablished and take: 0.01 s
+
+SAP number 0 started
+SAP N° 0 and BEAM N° 0 Stokes: 4 and Part: 0 is done
+
+SAP number 0 done
+
+SAP number 1 started
+SAP N° 1 and BEAM N° 0 Stokes: 4 and Part: 0 is done
+
+SAP number 1 done
+
+
+Duration of processing: 18.42 s
+</pre></div>
+</div>
+<p>The output directory then contains two dynspec files, named <em>Dynspec_complete_L248607_SAP000.h5</em> and <em>Dynspec_complete_L248607_SAP001.h5</em>, one for each station beam.</p>
+</div>
+<div class="section" id="beam2dynspec-rebin">
+<h3>Beam2Dynspec-Rebin<a class="headerlink" href="#beam2dynspec-rebin" title="Permalink to this headline">¶</a></h3>
+<p>This tool does a conversion from raw LOFAR beam-formed data to the dynspec data format, performing rebinning and/or data selection in the process. With this tool it is possible to select interesting time and/or frequency windows and also to rebin (average) in time and frequency to reduce the size of the dataset to a lower resolution.</p>
+<p>The usage is explained if the user runs the command with no arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Beam2Dynspec</span><span class="o">-</span><span class="n">Rebin</span>
+
+<span class="n">MISSING</span> <span class="n">Parameters</span>
+<span class="n">Usage</span><span class="p">:</span> <span class="n">Beam2Dynspec</span><span class="o">-</span><span class="n">Rebin</span> <span class="o">--</span><span class="nb">id</span><span class="o">=</span><span class="n">Lxxx</span>  <span class="o">--</span><span class="n">obsDIR</span><span class="o">=</span>
+<span class="o">--</span><span class="n">outputDIR</span><span class="o">=</span>  <span class="o">--</span><span class="n">tmin</span><span class="o">=</span> <span class="o">--</span><span class="n">tmax</span><span class="o">=</span>  <span class="o">--</span><span class="n">tscale</span><span class="o">=</span> <span class="o">--</span><span class="n">fmin</span><span class="o">=</span>
+<span class="o">--</span><span class="n">fmax</span><span class="o">=</span> <span class="o">--</span><span class="n">chanPerSubband</span><span class="o">=</span> <span class="o">--</span><span class="n">RAM</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">Gb</span><span class="p">)</span> <span class="o">--</span><span class="n">Npart</span><span class="o">=</span>
+<span class="o">--</span><span class="n">RebinAll</span><span class="o">=</span><span class="p">(</span><span class="n">yes</span> <span class="ow">or</span> <span class="n">no</span><span class="p">)</span>
+<span class="p">[</span><span class="k">if</span> <span class="n">Rebinall</span><span class="o">=</span><span class="n">yes</span> <span class="n">default</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="k">else</span> <span class="o">--</span><span class="n">NSAP</span><span class="o">=</span><span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>id=</strong> : The LOFAR observation ID, in the format Lxxxxxx</li>
+<li><strong>obsDIR=</strong> : Directory which contains all the h5 and raw files of the observation. The full path must be provided.</li>
+<li><strong>outputDIR=</strong> : Output directory where the resulting dynspec file(s), one per station beam, should be written.</li>
+</ul>
+<p>Rebining and selection parameters:</p>
+<ul class="simple">
+<li><strong>tmin=</strong> : Lower time value of data selection to rebin, in seconds from the start of the observation.  Use ‘0’ for the start of the observation.</li>
+<li><strong>tmax=</strong> : Upper time value of data selection to rebin, in seconds from the start of the observation. Any value greater than the length of the observation will be automatically corrected to the length of the observation.</li>
+<li><strong>tscale=</strong> : Time resolution to rebin the data to, in seconds.  It must be greater than or equal to the time resolution of the observation.</li>
+<li><strong>fmin=</strong> : Lower frequency value of data selection to rebin, in MHz.  Any value lower than the minimum frequency of the observation will be automatically corrected to the minimum frequency of the observation.</li>
+<li><strong>fmax=</strong> : Upper frequency value of data selection to rebin, in MHz.  Any value greater than the maximum frequency of the observation will be automatically corrected to the maximum frequency of the observation.</li>
+<li>chanPerSubband= : The number of channels per subband to rebin the data to.  It must be a power of two, in common with when specifying a LOFAR observation; e.g. values of 2, 4, 8, 16, 32, 64, 128, etc are permitted.</li>
+<li><strong>RAM=</strong> : The amount of RAM the code is allowed to use. A value typically between 0.5-1 GB is recommended. This value has been estimated empirically, so it is not perfect. Large memory usage does not mean a speed improvement: the RAM quantity is linked to the size of the data blocks which will processed to obtain the full array, and often it is better to have many small blocks than fewer large ones.</li>
+<li><strong>Npart=</strong> : The total number of ‘parts’ (Pxxx in the beam-formed data file names) the data for each beam have been written to. If all sub-bands were written to one file for each beam, use <em>Npart=1</em>.</li>
+<li><strong>RebinAll=</strong> : yes or no. If ‘yes’, all SAPs (station beams) will be processed. If ‘no’, provide the number of the SAP that you want to process (see <em>NSAP=</em>)</li>
+<li><strong>NSAP=</strong> (optional): Only used if <em>RebinAll=no</em>. Number of the SAP that you wish to process, e.g. ‘0’ for <em>SAP000</em>.</li>
+</ul>
+<p>Example, using the same observation parameters detailed in the example from subsection <a class="reference internal" href="#dynspeccomplete"><span class="std std-ref">Beam2Dynspec-complete</span></a>. However, now we wish to rebin the data using the following parameters: use only data in the time window of 100-250 s and frequency window of 30-60 MHz; rebin to a time resolution of 0.1 s and a frequency resolution of 4 channels per subband:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Beam2Dynspec-Rebin  --id=L648607
+--obsDIR=/data/scratch/vilchez/CasA/L248607/
+--outputDIR=/data/scratch/vilchez/CasA/Dynspec/
+--tmin=100 --tmax=250  --tscale=0.1
+--fmin=30 --fmax=60 --chanPerSubband=4
+--RAM=1 --Npart=1  --RebinAll=yes
+
+find /data/scratch/vilchez/CasA/L248607/ -name
+L248607_SAP*bf.h5  &gt;
+/data/scratch/vilchez/CasA/Dynspec/ICD3-Rebin-list.txt
+
+ICD3 files list etablished and take: 0.01 s
+
+SAP number 0 started
+SAP N° 0 and BEAM N° 0 Stokes: 4 and Part: 0 is done
+
+SAP number 0 done
+
+SAP number 1 started
+SAP N° 1 and BEAM N° 0 Stokes: 4 and Part: 0 is done
+
+SAP number 1 done
+
+
+Duration of processing: 3.87 s
+</pre></div>
+</div>
+<p>Now in the output directory there are two dynspec files named <em>Dynspec_rebinned_L648607_SAP000.h5</em> and <em>Dynspec_rebinned_L648607_SAP001.h5</em>.</p>
+</div>
+<div class="section" id="beam2dynspec-quick">
+<h3>Beam2Dynspec-Quick<a class="headerlink" href="#beam2dynspec-quick" title="Permalink to this headline">¶</a></h3>
+<p>This tool generates quick look plots of the data and is recommended for use just after an observation to visualise the data to determine which part(s) are useful to be selected and rebinned.  Plots generated via this tool have a fixed time resolution of one second and frequency resolution of one sub-band.  For each second in time and sub-band in frequency, the code takes x % of the data in time and y % of the data in frequency to average to obtain the value of each pixel. Usually 1-5 percent of the time and 10-20 percent of the frequency channels are enough to obtain a good quicklook. This tool is able to generate quicklook plots from several hundreds of GByte of observation in less than 5 minutes. Quicklooks are produced in jpeg and a dynspec format file is also produced for later visualisation if desired.</p>
+<p>The usage is explained if the user runs the command with no arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Beam2Dynspec</span><span class="o">-</span><span class="n">Quick</span>
+
+<span class="n">MISSING</span> <span class="n">Parameters</span>
+<span class="n">Usage</span><span class="p">:</span> <span class="n">Beam2Dynspec</span><span class="o">-</span><span class="n">Quick</span> <span class="o">--</span><span class="nb">id</span><span class="o">=</span><span class="n">Lxxx</span> <span class="o">--</span><span class="n">obsDIR</span><span class="o">=</span>
+<span class="o">--</span><span class="n">outputDIR</span><span class="o">=</span> <span class="o">--</span><span class="n">percentTimeData</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="o">-&gt;</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">--</span><span class="n">percentSpectralData</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="o">-&gt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">--</span><span class="n">transpose</span><span class="o">=</span><span class="p">[</span><span class="n">yes</span> <span class="ow">or</span> <span class="n">no</span><span class="p">]</span>
+<span class="o">--</span><span class="n">nofPart</span><span class="o">=</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>id=</strong> : The LOFAR observation ID, in the format Lxxxxxx</li>
+<li><strong>obsDIR=</strong> : Directory which contains all the h5 and raw files of the observation. The full path must be provided.</li>
+<li><strong>outputDIR=</strong> : Output directory where the resulting dynspec file(s), one per station beam, should be written.</li>
+<li><strong>percentTimeData=[0-&gt;1]</strong> : The percentage of time data for each second that you wish used for quicklook generation, expressed as a fraction between 0 and 1.</li>
+<li><strong>percentSpectralData=[0-&gt;1]</strong> : The percentage of frequency data for each sub-band that you wish used for quicklook generation, expressed as a fraction between 0 and 1.</li>
+<li><strong>transpose=[yes or no]</strong> : Usually, data are plotted with frequency along the x-axis and time along the y-axis.  This parameter transposes the data so that time is along the x-axis.</li>
+<li><strong>nofPart=</strong> : The total number of ‘parts’ (Pxxx in the beam-formed data file names) the data for each beam have been written to. If all sub-bands were written to one file for each beam, use <em>nofPart=1</em>. The tool will generate a quicklook for each part automatically.</li>
+</ul>
+<p>Example, using the same observation parameters detailed in the example from subsection <a class="reference internal" href="#dynspeccomplete"><span class="std std-ref">Beam2Dynspec-complete</span></a>.  Here we wish to generate quicklook plots of the data using as input 1 % of the data in time and 10 % in frequency:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Beam2Dynspec</span><span class="o">-</span><span class="n">Quick</span> <span class="o">--</span><span class="nb">id</span><span class="o">=</span><span class="n">L648607</span>
+<span class="o">--</span><span class="n">obsDIR</span><span class="o">=/</span><span class="n">data</span><span class="o">/</span><span class="n">scratch</span><span class="o">/</span><span class="n">vilchez</span><span class="o">/</span><span class="n">CasA</span><span class="o">/</span><span class="n">L648607</span><span class="o">/</span>
+<span class="o">--</span><span class="n">outputDIR</span><span class="o">=/</span><span class="n">data</span><span class="o">/</span><span class="n">scratch</span><span class="o">/</span><span class="n">vilchez</span><span class="o">/</span><span class="n">CasA</span><span class="o">/</span><span class="n">Dynspec</span><span class="o">/</span>
+<span class="o">--</span><span class="n">percentTimeData</span><span class="o">=</span><span class="mf">0.01</span> <span class="o">--</span><span class="n">percentSpectralData</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="o">--</span><span class="n">transpose</span><span class="o">=</span><span class="n">no</span> <span class="o">--</span><span class="n">nofPart</span><span class="o">=</span><span class="mi">1</span>
+
+
+<span class="n">Part</span> <span class="mi">0</span> <span class="n">Started</span>
+<span class="o">-----------------------------------</span>
+
+<span class="n">ICD3</span> <span class="n">files</span> <span class="nb">list</span> <span class="n">etablished</span> <span class="ow">and</span> <span class="n">take</span><span class="p">:</span> <span class="mf">0.01</span> <span class="n">s</span>
+
+<span class="n">SAP</span> <span class="n">number</span> <span class="mi">0</span> <span class="n">started</span>
+<span class="n">SAP</span> <span class="n">number</span> <span class="mi">1</span> <span class="n">started</span>
+
+<span class="n">Duration</span> <span class="n">of</span> <span class="n">processing</span><span class="p">:</span> <span class="mf">0.23</span> <span class="n">s</span>
+
+<span class="n">plot</span> <span class="n">generation</span> <span class="n">started</span>
+<span class="n">Quicklook</span> <span class="n">generation</span> <span class="n">finished</span> <span class="ow">and</span> <span class="n">take</span><span class="p">:</span> <span class="mf">1.33</span> <span class="n">s</span>
+<span class="n">Part</span> <span class="mi">0</span> <span class="n">Finished</span>
+<span class="o">-----------------------------------</span>
+
+<span class="n">Quicklook</span> <span class="n">data</span> <span class="n">generation</span> <span class="ow">is</span> <span class="n">finished</span> <span class="k">for</span> <span class="n">All</span> <span class="n">Part</span> <span class="ow">and</span>
+<span class="n">takes</span> <span class="mf">1.34</span> <span class="n">s</span>
+</pre></div>
+</div>
+<p>This creates the following jpg image files in the output directory, an example of which is given in <a class="reference internal" href="#quicklook"><span class="std std-numref">Fig. 4</span></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="n">QuickLook_Continous_L648607_SAP000_000_P000</span><span class="o">.</span><span class="n">jpg</span><span class="p">,</span>
+<span class="o">+</span> <span class="n">QuickLook_Non_Continous_L648607_SAP000_000_P000</span><span class="o">.</span><span class="n">jpg</span><span class="p">,</span>
+<span class="o">+</span> <span class="n">QuickLook_Continous_L648607_SAP001_000_P000</span><span class="o">.</span><span class="n">jpg</span><span class="p">,</span>
+<span class="o">+</span> <span class="n">QuickLook_Non_Continous_L648607_SAP001_000_P000</span><span class="o">.</span><span class="n">jpg</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>and two dynspec files:</p>
+<ul class="simple">
+<li>QuickLook_L648607_SAP000_P000.h5</li>
+<li>QuickLook_L648607_SAP001_P000.h5</li>
+</ul>
+<p>which can be opened and visualised in the same way as any other dynspec file.</p>
+<div class="figure align-center" id="id4">
+<span id="quicklook"></span><img alt="_images/Casa_quicklook.jpg" src="_images/Casa_quicklook.jpg" />
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">An example quicklook image output by Beam2Dynspec-Quicklook.</span></p>
+</div>
+</div>
+<div class="section" id="dynspec-linpol">
+<h3>Dynspec-LinPol<a class="headerlink" href="#dynspec-linpol" title="Permalink to this headline">¶</a></h3>
+<p>This tool can be used to convert the I,Q,U,V dynamic spectra to I, Linear Polarization, Position Angle, Total Polarization, which are defined as:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}Linear Polarization = \sqrt{Q*Q+U*U}\\Position Angle = \frac{1}{2} tan^{-1}(U/Q)\\Total Polarization = (Linear+V+PA)/I\end{aligned}\end{align} \]</div>
+<p>It operates on data which have already been converted into the dynamic spectrum data format via one of the tools above.</p>
+<p>The usage is explained if the user runs the command with no arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dynspec</span><span class="o">-</span><span class="n">LinPol</span>
+
+<span class="n">MISSING</span> <span class="n">Parameters</span>
+<span class="n">Usage</span><span class="p">:</span> <span class="o">.</span><span class="n">Dynspec</span><span class="o">-</span><span class="n">LinPol</span> <span class="o">--</span><span class="n">outDir</span><span class="o">=</span>
+<span class="o">--</span><span class="n">ID</span><span class="o">=</span><span class="p">[</span><span class="n">what</span> <span class="n">you</span> <span class="n">want</span><span class="p">:</span><span class="n">Determine</span> <span class="n">the</span> <span class="n">output</span> <span class="n">filename</span><span class="p">]</span>
+<span class="o">--</span><span class="n">filename</span><span class="o">=</span><span class="p">[</span><span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">ICD6</span> <span class="n">file</span> <span class="p">(</span><span class="o">*.</span><span class="n">h5</span><span class="p">)]</span> <span class="o">--</span><span class="n">RAM</span><span class="o">=</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>outDir=</strong> : This is the output directory where the new dynspec file with I,Lin,PA,Total polarization will be written.</li>
+<li><strong>ID=</strong> : This is used to determine the name of the output file, in the format <em>Dynspec_Linear_Polar_ID.h5</em></li>
+<li><strong>filename=</strong> : Full Path of the input dynspec file (*.h5).</li>
+<li><strong>RAM=</strong> : The amount of RAM the code is allowed to use. A value typically between 0.5-1 GB is recommended. This value has been estimated empirically, so it is not perfect. Large memory usage does not mean a speed improvement: the RAM quantity is linked to the size of the data blocks which will processed to obtain the full array, and often it is better to have many small blocks than fewer large ones.</li>
+</ul>
+<p>Example, using the same observation parameters detailed in the example from subsection <a class="reference internal" href="#dynspeccomplete"><span class="std std-ref">Beam2Dynspec-complete</span></a>.  This observation also contains the four Stokes parameters, I,Q,U,V which we can convert using the <strong>Dynspec_LinPol</strong> tool.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dynspec</span><span class="o">-</span><span class="n">LinPol</span> <span class="o">--</span><span class="n">outDir</span><span class="o">=/</span><span class="n">data</span><span class="o">/</span><span class="n">scratch</span><span class="o">/</span><span class="n">vilchez</span><span class="o">/</span><span class="n">CasA</span><span class="o">/</span>
+                     <span class="n">Dynspec</span><span class="o">/</span>
+<span class="o">--</span><span class="n">ID</span><span class="o">=</span><span class="n">CasA_LinPol</span>
+<span class="o">--</span><span class="n">filename</span><span class="o">=/</span><span class="n">data</span><span class="o">/</span><span class="n">scratch</span><span class="o">/</span><span class="n">vilchez</span><span class="o">/</span><span class="n">CasA</span><span class="o">/</span><span class="n">Dynspec</span><span class="o">/</span>
+<span class="n">Dynspec_rebinned_L648607_SAP000</span><span class="o">.</span><span class="n">h5</span> <span class="o">--</span><span class="n">RAM</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="n">Linear</span> <span class="n">Polarisation</span> <span class="n">Process</span> <span class="n">Finished</span>
+
+
+<span class="n">Duration</span> <span class="n">of</span> <span class="n">processing</span><span class="p">:</span> <span class="mf">0.12</span> <span class="n">s</span>
+</pre></div>
+</div>
+<p>The output directory then contains a file named: <strong>Dynspec_Linear_Polar_CasA_LinPol.h5</strong>.</p>
+</div>
+<div class="section" id="dynspec-subtract">
+<span id="dynspecsubtract"></span><h3>Dynspec-Subtract<a class="headerlink" href="#dynspec-subtract" title="Permalink to this headline">¶</a></h3>
+<p>This tool is designed to subtract one dynamic spectrum from another. Frequently, observations may have 2 beams, one on the target and one off-axis to have a measure of the noise, RFI, etc.  This tool performs a subtraction of the dynamic spectrum of one beam from another which can be either in the same or different dynspec files. The only condition is that the data must have the same format! It is possible to apply a multiplicator to the subtraction: <strong>New_dynspec = dynspec1-(k.dynspec2)</strong> where <strong>k</strong> is a number. For clarification, beams in the same dynspec file have a nomenclature inside the dynspec file of <strong>DYNSPEC_xxx</strong>.</p>
+<p>The usage is explained if the user runs the command with no arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dynspec</span><span class="o">-</span><span class="n">LinPol</span>
+
+<span class="n">MISSING</span> <span class="n">Parameters</span>
+<span class="n">Usage</span><span class="p">:</span> <span class="n">Dynspec</span><span class="o">-</span><span class="n">Substract</span> <span class="o">--</span><span class="n">outDir</span><span class="o">=</span>
+<span class="o">--</span><span class="n">id1</span><span class="o">=</span><span class="p">[</span><span class="n">what</span> <span class="n">you</span> <span class="n">want</span><span class="p">:</span><span class="n">Determine</span> <span class="n">the</span> <span class="n">output</span> <span class="n">filename</span>
+<span class="o">=&gt;</span> <span class="n">id1</span><span class="o">-</span><span class="n">kxid2</span> <span class="ow">or</span> <span class="n">id1_dynspec1</span><span class="o">-</span><span class="n">kxdynspec2</span><span class="p">;</span> <span class="n">depends</span> <span class="k">if</span>
+<span class="n">file1</span> <span class="o">&amp;</span> <span class="n">file2</span> <span class="n">are</span> <span class="n">the</span> <span class="n">same</span><span class="p">]</span>
+<span class="o">--</span><span class="n">file1</span><span class="o">=</span><span class="p">[</span><span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">ICD6</span> <span class="n">file</span> <span class="p">(</span><span class="o">*.</span><span class="n">h5</span><span class="p">)]</span>
+<span class="o">--</span><span class="n">dynspec1</span><span class="o">=</span><span class="p">[</span><span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">dynspec</span> <span class="n">Group</span> <span class="n">ex</span><span class="p">:</span> <span class="n">DYNSPEC_000</span><span class="p">]</span>
+<span class="o">--</span><span class="n">id2</span><span class="o">=</span> <span class="o">--</span><span class="n">file2</span><span class="o">=</span> <span class="o">--</span><span class="n">dynspec2</span><span class="o">=</span> <span class="o">--</span><span class="n">k</span><span class="o">=</span><span class="p">[</span><span class="n">scaling</span> <span class="n">factor</span><span class="p">:</span>
+<span class="n">dynspec1</span><span class="o">-</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="n">dynspec2</span><span class="p">)]</span> <span class="o">--</span><span class="n">RAM</span><span class="o">=</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>outDir=</strong> : This is the output directory where the new subtracted dynspec file should be written.</li>
+<li><strong>id1=</strong> : Create the output file name as <strong>Dynspec_Subtracted_{id1}-{k}x{id2}</strong> if file1 and file2 are different, or <strong>Dynspec_Subtracted_{id1}_dynspec1-{k}xdynspec2</strong> if file1 and file2 are the same.</li>
+<li><strong>file1=</strong> : The file containing the first dynamic spectrum (*.h5).</li>
+<li><strong>dynspec1=</strong> : Name of the dynspec Group in file1 corresponding to the first dynamic spectrum (i.e the Beam inside the dynspec file), e.g. <strong>DYNSPEC_000</strong>.</li>
+<li><strong>id2=</strong> : Determine the output name <strong>id1-kxid2</strong> or <strong>id1_dynspec1-kxdynspec2</strong>. It depends if file1 and file2 are the same.</li>
+<li><strong>file2=</strong> : The file containing the second dynamic spectrum (*.h5).</li>
+<li><strong>dynspec2=</strong> : Name of the dynspec Group in file2 corresponding to the second dynamic spectrum (i.e the Beam inside the dynspec file), e.g. <strong>DYNSPEC_001</strong>.</li>
+<li><strong>k=</strong> : Scaling factor: <strong>dynspec1-(k*dynspec2)</strong>. Use 1 for a simple subtraction.</li>
+<li><strong>RAM=</strong> : The amount of RAM the code is allowed to use. A value typically between 0.5-1 GB is recommended. This value has been estimated empirically, so it is not perfect. Large memory usage does not mean a speed improvement: the RAM quantity is linked to the size of the data blocks which will processed to obtain the full array, and often it is better to have many small blocks than fewer large ones.</li>
+</ul>
+<p>Example, using the same observation parameters detailed in the example from subsection <a class="reference internal" href="#dynspeccomplete"><span class="std std-ref">Beam2Dynspec-complete</span></a>: Here, we take the complete dynamic spectrum of Beam 0 from station beam SAP 0, stored as <strong>DYNSPEC_000</strong> in dynspec file <strong>Dynspec_complete_L648607_SAP000.h5</strong>, and subtract from it the complete dynamic spectrum of Beam 0 from station beam SAP 1, stored as <strong>DYNSPEC_000</strong> in dynspec file <strong>Dynspec_complete_L648607_SAP001.h5</strong>.  We use a scaling factor of 1.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dynspec</span><span class="o">-</span><span class="n">Substract</span>
+<span class="o">--</span><span class="n">outDir</span><span class="o">=/</span><span class="n">data</span><span class="o">/</span><span class="n">scratch</span><span class="o">/</span><span class="n">vilchez</span><span class="o">/</span><span class="n">CasA</span><span class="o">/</span><span class="n">Dynspec</span><span class="o">/</span> <span class="o">--</span><span class="n">id1</span><span class="o">=</span><span class="n">CasA</span>
+<span class="o">--</span><span class="n">file1</span><span class="o">=/</span><span class="n">data</span><span class="o">/</span><span class="n">scratch</span><span class="o">/</span><span class="n">vilchez</span><span class="o">/</span><span class="n">CasA</span><span class="o">/</span><span class="n">Dynspec</span><span class="o">/</span>
+<span class="n">Dynspec_complete_L648607_SAP000</span><span class="o">.</span><span class="n">h5</span>
+<span class="o">--</span><span class="n">dynspec1</span><span class="o">=</span><span class="n">DYNSPEC_000</span> <span class="o">--</span><span class="n">id2</span><span class="o">=</span><span class="n">CasA_offset</span>
+<span class="o">--</span><span class="n">file2</span><span class="o">=/</span><span class="n">data</span><span class="o">/</span><span class="n">scratch</span><span class="o">/</span><span class="n">vilchez</span><span class="o">/</span><span class="n">CasA</span><span class="o">/</span><span class="n">Dynspec</span><span class="o">/</span>
+<span class="n">Dynspec_complete_L648607_SAP001</span><span class="o">.</span><span class="n">h5</span>
+<span class="o">--</span><span class="n">dynspec2</span><span class="o">=</span><span class="n">DYNSPEC_000</span> <span class="o">--</span><span class="n">k</span><span class="o">=</span><span class="mi">1</span> <span class="o">--</span><span class="n">RAM</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="n">Substraction</span> <span class="n">Process</span> <span class="n">Finished</span>
+
+
+<span class="n">Duration</span> <span class="n">of</span> <span class="n">processing</span><span class="p">:</span> <span class="mf">11.21</span> <span class="n">s</span>
+</pre></div>
+</div>
+<p>The output directory then contains a new dynspec file named: <strong>Dynspec_Subtracted_CasA-1xCasA_offset.h5</strong></p>
+</div>
+<div class="section" id="dynspec-rebin">
+<h3>Dynspec-Rebin<a class="headerlink" href="#dynspec-rebin" title="Permalink to this headline">¶</a></h3>
+<p>This tool is for rebinng of a dynspec format file, avoiding the need to go back to the original beam-formed data if further rebinning is required (e.g. the user wishes a lower time/frequency resolution or smaller time/frequency windows). Usage is similar to the Beam2Dynspec-Rebin tool detailed above.</p>
+<p>The usage is explained if the user runs the command with no arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dynspec</span><span class="o">-</span><span class="n">Rebin</span>
+
+<span class="n">MISSING</span> <span class="n">Parameters</span>
+<span class="n">Usage</span><span class="p">:</span> <span class="n">Dynspec</span><span class="o">-</span><span class="n">Rebin</span> <span class="o">--</span><span class="n">Pathfile</span><span class="o">=</span>
+<span class="o">--</span><span class="n">obsname</span><span class="o">=</span><span class="n">Lxxx</span><span class="p">[</span><span class="k">for</span> <span class="n">metadata</span><span class="p">]</span>
+<span class="o">--</span><span class="n">outputFile</span><span class="o">=</span><span class="p">[</span><span class="n">choose</span> <span class="n">the</span> <span class="n">complete</span> <span class="n">output</span> <span class="n">name</span><span class="p">]</span>
+<span class="o">--</span><span class="n">tmin</span><span class="o">=</span> <span class="o">--</span><span class="n">tmax</span><span class="o">=</span>  <span class="o">--</span><span class="n">tscale</span><span class="o">=</span> <span class="o">--</span><span class="n">fmin</span><span class="o">=</span> <span class="o">--</span><span class="n">fmax</span><span class="o">=</span>
+<span class="o">--</span><span class="n">chanPerSubband</span><span class="o">=</span> <span class="o">--</span><span class="n">RAM</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">Gb</span><span class="p">)]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>Pathfile=</strong> : Path to the dynspec format file to rebin (*.h5)</li>
+<li><strong>obsname=</strong> : Lxxx observation ID, used for writing correct metadata</li>
+<li><strong>outputFile=</strong> : Name of the output dynspec file.</li>
+</ul>
+<p>Rebining and selection parameters:</p>
+<ul class="simple">
+<li><strong>tmin=</strong> : Lower time value of data selection to rebin, in seconds from the start of the observation.  Use ‘0’ for the start of the observation.</li>
+<li><strong>tmax=</strong> : Upper time value of data selection to rebin, in seconds from the start of the observation.  Any value greater than the length of the observation will be automatically corrected to the length of the observation.</li>
+<li><strong>tscale=</strong> : Time resolution to rebin the data to, in seconds.  It must be greater than or equal to the time resolution of the observation.</li>
+<li><strong>fmin=</strong> : Lower frequency value of data selection to rebin, in MHz.  Any value lower than the minimum frequency of the observation will be automatically corrected to the minimum frequency of the observation.</li>
+<li><strong>fmax=</strong> : Upper frequency value of data selection to rebin, in MHz.  Any value greater than the maximum frequency of the observation will be automatically corrected to the maximum frequency of the observation.</li>
+<li><strong>chanPerSubband=</strong> : The number of channels per subband to rebin the data to.  It must be a power of two, in common with when specifying a LOFAR observation; e.g. values of 2, 4, 8, 16, 32, 64, 128, etc are permitted.</li>
+<li><strong>RAM=</strong> : The amount of RAM the code is allowed to use. A value typically between 0.5-1 GB is recommended. This value has been estimated empirically, so it is not perfect. Large memory usage does not mean a speed improvement: the RAM quantity is linked to the size of the data blocks which will processed to obtain the full array, and often it is better to have many small blocks than fewer large ones.</li>
+</ul>
+<p>Example, using the same observation parameters detailed in the example from subsection <a class="reference internal" href="#dynspeccomplete"><span class="std std-ref">Beam2Dynspec-complete</span></a>:, but which have already been converted into the dynspec format file output from the example given in sub-section <a class="reference internal" href="#dynspecsubtract"><span class="std std-ref">Dynspec-Subtract</span></a>. Now we wish to rebin the data, as before, using the following parameters: use only data in the time window of 100-250 s and frequency window of 30-60 MHz; rebin to a time resolution of 0.1 s and a frequency resolution of 4 channels per subband:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dynspec</span><span class="o">-</span><span class="n">Rebin</span> <span class="o">--</span><span class="n">Pathfile</span><span class="o">=/</span><span class="n">data</span><span class="o">/</span><span class="n">scratch</span><span class="o">/</span><span class="n">vilchez</span><span class="o">/</span><span class="n">CasA</span><span class="o">/</span>
+<span class="n">Dynspec</span><span class="o">/</span><span class="n">Dynspec_Subtracted_CasA</span><span class="o">-</span><span class="mi">1</span><span class="n">xCasA_offset</span><span class="o">.</span><span class="n">h5</span>
+<span class="o">--</span><span class="n">obsname</span><span class="o">=</span><span class="n">L648607</span>
+<span class="o">--</span><span class="n">outputFile</span><span class="o">=/</span><span class="n">data</span><span class="o">/</span><span class="n">scratch</span><span class="o">/</span><span class="n">vilchez</span><span class="o">/</span><span class="n">CasA</span><span class="o">/</span>
+<span class="n">Dynspec</span><span class="o">/</span><span class="n">Dynspec_Subtracted_CasA_Rebinned</span><span class="o">.</span><span class="n">h5</span>
+<span class="o">--</span><span class="n">tmin</span><span class="o">=</span><span class="mi">100</span> <span class="o">--</span><span class="n">tmax</span><span class="o">=</span><span class="mi">250</span>  <span class="o">--</span><span class="n">tscale</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">--</span><span class="n">fmin</span><span class="o">=</span><span class="mi">30</span> <span class="o">--</span><span class="n">fmax</span><span class="o">=</span><span class="mi">60</span>
+<span class="o">--</span><span class="n">chanPerSubband</span><span class="o">=</span><span class="mi">4</span> <span class="o">--</span><span class="n">RAM</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="n">Dynspec</span> <span class="n">N</span> <span class="mi">0</span> <span class="ow">is</span> <span class="n">re</span><span class="o">-</span><span class="n">processed</span>
+
+<span class="n">Duration</span> <span class="n">of</span> <span class="n">processing</span><span class="p">:</span> <span class="mf">14.42</span> <span class="n">s</span>
+</pre></div>
+</div>
+<p>The output file has then been named as <strong>Dynspec_Subtracted_CasA_Rebinned.h5</strong>.</p>
+</div>
+<div class="section" id="dynspec-visu">
+<span id="dynspecvisu"></span><h3>Dynspec-Visu<a class="headerlink" href="#dynspec-visu" title="Permalink to this headline">¶</a></h3>
+<p>This tool allows the easy visualisation of any beam and any polarisation parameter from any dynspec format file.  The conversion to dynspec format or data processing via any of the tools outlined here does not perform any normalisation of the data.  But for visualisation the data are normalised by the first tencile (10%) to flatten the data.  Note that this is only for visualisation and the original data are not touched!  Upon startup, a cumulative distribution of the frequency channels is generated and the first tencile of this distribution computed. Then for all pixels in the displayed data, the plotted value for intensity is <span class="math notranslate nohighlight">\(I' = I/(first\ tencile)\)</span>. Polarisation parameters are normalised by the intensity, <span class="math notranslate nohighlight">\(I\)</span>.</p>
+<p>To run the tool, simply type in a terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dynspec</span><span class="o">-</span><span class="n">Visu</span>
+</pre></div>
+</div>
+<p>A grey window then appears containing only two menu items, ‘File’ and ‘Quit’.  Click on ‘File’ and then ‘Load a Dynamic Spectrum’ to open a dialog from which you can select the dynspec format file you wish to load.</p>
+<p>The visualisation structure appears, as shown in <a class="reference internal" href="#visstructure"><span class="std std-numref">Fig. 5</span></a>.</p>
+<div class="figure align-center" id="id5">
+<span id="visstructure"></span><img alt="_images/visualisation1.png" src="_images/visualisation1.png" />
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Example view of Dynspec-Visu immediately after loading a dynamic spectrum file.</span></p>
+</div>
+<p>At this step, you see on the top left (in the box “Dynamic Spectra”) the different dynamic spectra contained in your file ( <strong>DYNSPEC_000</strong>, <strong>DYNSPEC_001</strong>, etc).  Select a dynamic spectrum by double-clicking its name (e.g. <strong>DYNSPEC_000</strong>).</p>
+<p>In the “Metadata” window, the metadata of this dynamic spetrum appear (observation ID, Target, RA, DEC, LOFAR stations involved, frequency and time resolution, etc…). In the “Select Stoke” window just below, you see which Stokes parameters (I, Q, U, V, or I, lin, PA, total polarization) are available for the selected dynamic spctrum.  The “Resume selection” window shows at this stage that, for example, <strong>DYNSPEC_000</strong> is selected, but no Stokes parameter has been chosen yet.  In the “Select Stokes” window, double-click on the Stokes component you are interested in (e.g. “Stokes: I”).</p>
+<p>Now the selected Stokes parameter appears in the “Resume Selection” window. With this, the display buttons (Non-continous and continous) become available in the “Display” section.  If your observation covers a continuous frequency band, you will not see a difference by selecting either of these buttons. However, if your observation covers several frequency bands separated by gaps, the behaviour differs:</p>
+<ul class="simple">
+<li>“No-Continuous” will show the data, spaced appropriately according to the gaps in the frequency coverage. This is useful, for example, to visualise slopes in bursts.</li>
+<li>“Continuous” will only show the data and omit the data gaps. This can be useful when the data gaps are very large, and when the signal is broadband and/or slowly variable in time.</li>
+</ul>
+<p>Click (only once!) on either “continuous” or “non-continuous”.  Be patient, data display can take a while, especially if your file is &gt; 1 GB. A progress bar indicates approximately what fraction of the file has been processed but don’t be surprised if it does not move for some time, its granularity is low.  An example of the resulting display is given in <a class="reference internal" href="#visdynspec1"><span class="std std-numref">Fig. 6</span></a>.</p>
+<div class="figure align-center" id="id6">
+<span id="visdynspec1"></span><img alt="_images/visualisation2.png" src="_images/visualisation2.png" />
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Example view of Dynspec-Visu showing the initial plot of a dynamic spectrum.</span></p>
+</div>
+<p>Clicking in the dynamic spectrum plot window (labelled “Plotting The LOFAR Dynamic Spectrum Data”) enables the display of time and frequency profiles in the two windows to the right of the dynamic spectrum, as shown in <a class="reference internal" href="#visdynspec2"><span class="std std-numref">Fig. 7</span></a>.  The position of your cursor in time and frequency is indicated below the plot.</p>
+<div class="figure align-center" id="id7">
+<span id="visdynspec2"></span><img alt="_images/visualisation3.png" src="_images/visualisation3.png" />
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Example view of Dynspec-Visu showing the dynamic spectrum and time (upper) and frequency (lower) series’.  The dynamic spectrum in this case has been transposed so that time runs along the x-axis.</span></p>
+</div>
+<p>To change the contrast in the main window, you can change the minimum and maximum values (boxes “Minimum” and “Maximum” just above the plot), and click on the respective “Update” buttons.  Please note that the values with which the “Minimum” and “Maximum” boxes are initialised should be disregarded.  The colour-scale is linear when initialised but in some cases it is useful to use a non-linear colour scale. For this, change the value of the “Gamma Correction” (the default value is 1: use a value close to 1) and click on the respective “Update” button.  Note that updating the gamma correction can be slow.  The “Transpose” button can be used to transpose the time and frequency axes in the dynamic spectrum.</p>
+<p>Each plot window is a standard matplotlib plot window, containing buttons which allow you to interact with each plot:</p>
+<ul class="simple">
+<li>The rightmost one allows the image to be saved in a variety of formats (png, jpg, eps, pdf, …).</li>
+<li>The second button from the right allows the size of the plot within the window to be rescaled.</li>
+<li>The third button from the right allows selection of a part of the plot to zoom into.  In zoom mode, the image may jump when you move the mouse.</li>
+<li>When zoomed in, the middle button allows you to “pan” around the plot.</li>
+<li>The second and third button from the left enable to browse back to the previous view (left arrow), or forward to the current one (right arrow).</li>
+<li>The left button is used to reset the plot.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="solarapplications.html" class="btn btn-neutral float-right" title="Solar applications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Beamforming Cookbook" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Pietro Zucca, Richard Fallows, Vlad Kondratiev, and Sarrvesh Sridhar
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

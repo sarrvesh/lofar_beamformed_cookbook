@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pulsar Pipeline (PulP) &mdash; Beamforming Cookbook v1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Solar applications" href="solarapplications.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Beamforming Cookbook
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solarapplications.html">Solar applications</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pulsar Pipeline (PulP)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#history">History</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Beamforming Cookbook</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Pulsar Pipeline (PulP)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/pulp.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pulsar-pipeline-pulp">
+<span id="pulp"></span><h1>Pulsar Pipeline (PulP)<a class="headerlink" href="#pulsar-pipeline-pulp" title="Permalink to this headline">¶</a></h1>
+<p>This chapter gives brief overview of the LOFAR Pulsar Pipeline (PulP) and its processing steps. More details will be given during the PulP lecture and tutorial at the 5th LOFAR Data Processing School at ASTRON (Dwingeloo) on September 17-21, 2018. The cookbook will be later updated with the more detailed information.</p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>In essence the pulsar pipeline is very simple. It reads the raw input data from an observation of a known pulsar, processes it in predetermined way depending on a beamformed observing mode, and creates the output tarballs for further ingest in the Long Term Archive (LTA). Most of the code have auxiliary functions for bookkeeping, figuring out where the raw data are, to read the observational parset file to know the observing parameters, and also feedback file with the metadata info for the LTA ingest. In a nutshell the core processing per beam or per beam/frequency part consists of a) either reading the raw data directly, or converting it to PSRFITS format, b) zapping the RFI, c) dedispersing/folding the time series using the given ephemeris file (.par), and d) creating the output data in the form of folded archives (.ar and/or .pfd) together with different diagnostic plots. Many of the processing steps can be modified by setting extra pipeline options or by turning them on/off. This core processing can be done with both PRESTO and dspsr/PSRCHIVE depending on user preference. By default, processing with both software packages are executed. The processing behavior can be modified either via command-line options when PulP is run manually, or via pipeline settings in MoM or xml-file when pipeline is run by the LOFAR automated system.</p>
+</div>
+<div class="section" id="history">
+<h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Over the years there were several major upgrades. The original non-Python (csh/bash) pipeline <strong>pulp.sh</strong> was written by Anastasia Alexov in ~2010 and was specifically designed to be run on the first LOFAR cluster CEP1.</li>
+<li>Then, next Python version of the pipeline, PulP, was written from scratch by Vlad Kondratiev in early 2012 to have better structured and easily maintainable code with access to many available Python packages. And also to adapt it to the new CEP2 cluster.</li>
+<li>In Mar-Apr 2014 the first major upgrade was done related to the switch to the new correlator <strong>Cobalt</strong> and to incorporate PulP into the LOFAR  automated framework. Before that the Pulp was always run manually (mostly by Vlad) to process the data recorded on CEP2. Only starting from the Cycle 3 (i.e. at the end of 2014) the data could be ingested to the LTA from the central system.</li>
+<li>From the end of 2016 other major changes were done to accommodate switching to the new CEP4 cluster with the new way of running pipelines in the automated mode. Usage of Slurm, Docker containers, and Global File system was incorporated into the code.</li>
+<li>PulP is still implemented in the LOFAR framework as a “black box” via the wrapper <strong>pulsar_pipeline.py</strong> that calls the main {tt pulp.py} from the PulP itself. This slows down bug fixing and further improvements quite significantly, and the plan is to truly incorporate Pulp into the central system as it is the case for imaging pipeline(s).</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="solarapplications.html" class="btn btn-neutral float-left" title="Solar applications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Pietro Zucca, Richard Fallows, Vlad Kondratiev, and Sarrvesh Sridhar
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
