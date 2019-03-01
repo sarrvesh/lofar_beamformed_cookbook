@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = u'Beamforming Cookbook'
-copyright = u'2019, Pietro Zucca, Richard Fallows, Vlad Kondratiev, and Sarrvesh Sridhar'
+copyright = u'2019, ASTRON'
 author = u'Pietro Zucca, Richard Fallows, Vlad Kondratiev, and Sarrvesh Sridhar'
 
 # The short X.Y version
@@ -82,6 +82,12 @@ numfig = True
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
+
+# Enable last updated date
+html_last_updated_fmt = '%b %d, %Y'
+
+# Remove copyright information
+html_show_copyright = False
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
